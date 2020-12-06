@@ -1,41 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
-import React, {Component} from 'react';
-
-const list = [
-  {
-    id: 1,
-    title: "1st book",
-    subtitle: "sub titile 1",
-    author: "author 1",
-    isbn: "123-00001"
-  },
-  {
-    id: 2,
-    title: "2nd book",
-    subtitle: "sub titile 2",
-    author: "author 2",
-    isbn: "123-00002"
-  },
-  {
-    id: 3,
-    title: "3rd book",
-    subtitle: "sub titile 3",
-    author: "author 3",
-    isbn: "123-00003"
-  }
-]
+import "./App.css";
+import React, { Component } from "react";
+import axios from 'axios';
 
 class App extends Component {
-  constructor (props) {
-    super(props);
-    this.state = {list};
+  state = {
+    todos: [],
+  };
+
+  componentDidMount() {
+    this.getBooks();
+  }
+
+  getBooks() {
+    axios.get("http://api_container:8000/api/").then((res) => {this.setState({books: res.data})}).catch(err => {console.log(err)});
   }
 
   render() {
     return (
       <div>
-        {this.state.list.map(item => (
+        {this.state.books.map((item) => (
           <div key={item.id}>
             <h1>{item.title}</h1>
             <p>{item.subtitle}</p>
@@ -44,7 +27,7 @@ class App extends Component {
           </div>
         ))}
       </div>
-    )
+    );
   }
 }
 
