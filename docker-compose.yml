@@ -1,0 +1,82 @@
+version: '3'
+
+services:
+
+  db:
+    image: postgres:13.1-alpine
+    container_name: db_container
+    hostname: 'db_server'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db_coffee
+    ports:
+      - '5433:5432'
+    volumes:
+      - db-vol:/var/lib/postgresql
+    networks:
+      - container-link
+
+  api:
+    container_name: api_container
+    hostname: 'api_server'
+    build: 
+      context: ./dockerfiles/api
+      dockerfile: Dockerfile
+    #ビルドしたイメージ名を設定
+    image: coffull_api_image
+    command: >
+      bash -c "python3 manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    volumes:
+      - api-vol:/app
+    networks:
+      - container-link
+    depends_on:
+      - db
+
+  web:
+    container_name: web_container
+    hostname: 'web_server'
+    #コンテナを起動させ続ける
+    tty: true
+    build:
+      context: ./dockerfiles/web
+      dockerfile: Dockerfile
+    image: coffull_web_image
+    command: >
+      sh -c "cd coffull-project-web &&
+      npm run build &&
+      npm start"
+    ports:
+      - "3000:3000"
+    volumes:
+      - web-vol:/coffull-project-web
+    networks:
+      - container-link
+
+volumes:
+  api-vol:
+    driver_opts:
+      type: none
+      device: ./coffull-docker/api
+      o: bind
+  web-vol:
+    driver_opts:
+      type: none
+      device: ./coffull-docker/web
+      o: bind
+  db-vol:
+    driver_opts:
+      type: none
+      device: ./coffull-docker/db
+      o: bind
+
+networks:
+  default:
+    external:
+      name: bridge
+  container-link:
+    name: docker.coffull
+
