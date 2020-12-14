@@ -64,9 +64,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_WHITELIST = (
-    'web_container:3000/'
-)
+CORS_ORIGIN_WHITELIST = [
+    'http://web_container:3000',
+    'http://localhost:3000'
+]
 
 ROOT_URLCONF = 'coffull_api.urls'
 
