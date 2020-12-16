@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import CommonTemplate from './templates/CommonTemplate';
+import App from './component/App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <CommonTemplate title="トップページ">
+      <App />
+    </CommonTemplate>
   </React.StrictMode>,
   document.getElementById('root')
 );
