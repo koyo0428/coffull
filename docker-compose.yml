@@ -7,13 +7,14 @@ services:
     container_name: db_container
     hostname: 'db_server'
     environment:
+      PGDATA: /var/lib/postgresql/data/db-files
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: db_coffee
+      POSTGRES_DB: coffull_db
     ports:
       - '5433:5432'
     volumes:
-      - db-vol:/var/lib/postgresql
+      - ./coffull-docker/db:/var/lib/postgresql/data
     networks:
       - container-link
 
@@ -26,7 +27,8 @@ services:
     #ビルドしたイメージ名を設定
     image: coffull_api_image
     command: >
-      bash -c "python3 manage.py runserver 0.0.0.0:8000"
+      bash -c "python3 manage.py migrate &&
+      python3 manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
     volumes:
@@ -46,8 +48,7 @@ services:
       dockerfile: Dockerfile
     image: coffull_web_image
     command: >
-      sh -c "cd coffull-project-web &&
-      npm run build &&
+      sh -c "npm run build &&
       npm start"
     ports:
       - "3000:3000"
@@ -66,11 +67,6 @@ volumes:
     driver_opts:
       type: none
       device: ./coffull-docker/web
-      o: bind
-  db-vol:
-    driver_opts:
-      type: none
-      device: ./coffull-docker/db
       o: bind
 
 networks:
