@@ -53,7 +53,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - web-vol:/coffull-project-web
+      - web-vol:/coffull-web
     networks:
       - container-link
 

@@ -142,10 +142,13 @@ const Copyright = () => {
   );
 };
 
-const CommonTemplate = ({
-  children,
-  title,
-}) => {
+// CommonTemplateのpropsのtype aliasを定義
+type CommonTemplateProps = {
+    children: any,
+    title: string,
+}
+
+const CommonTemplate: React.FC<CommonTemplateProps> = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -229,9 +232,9 @@ const CommonTemplate = ({
               noWrap
               className={classes.pageTitle}
             >
-              {title}
+              {props.title}
             </Typography>
-            {children}
+            {props.children}
             <Box pt={4}>
               <Copyright />
             </Box>

@@ -1,10 +1,32 @@
-import React, { Component } from "react";
+import React from "react";
 import axios from "axios";
 
-class App extends Component {
-  state = {
-    coffee: [],
-  };
+// Appのpropsのtype aliasを定義
+type AppProps = {
+
+}
+
+// Bookのtype
+type CoffeeType = {
+  name: string,
+  feature: string,
+  taste: string,
+  impressions: string,
+}
+
+// AppのLocalStateのtype aliasを定義
+type AppState = {
+  coffees: Array<CoffeeType>
+}
+
+class App extends React.Component<AppProps, AppState> {
+  constructor(props: AppProps) {
+    super(props);
+    // stateの初期状態
+    this.state = {
+      coffees: []
+    }
+  }
 
   componentDidMount() {
     this.getBooks();
@@ -14,7 +36,7 @@ class App extends Component {
     axios
       .get("http://localhost:8000/api")
       .then((res) => {
-        this.setState({ coffee: res.data });
+        this.setState({ coffees: res.data });
       })
       .catch((err) => {
         console.log(err);
@@ -24,7 +46,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        {this.state.coffee.map((item,i) => {
+        {this.state.coffees.map((item,i) => {
           return (
             <div key={i}>
               <h1>{item.name}</h1>
