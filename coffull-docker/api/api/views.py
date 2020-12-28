@@ -1,8 +1,8 @@
 from rest_framework import generics
-from .models import Books
-from .serializers import BookSerializer
+from .models import Coffee
+from .serializers import CoffeeSerializer
 
 
-class BookAPIView(generics.ListAPIView):
-    queryset = Books.objects.all()
-    serializer_class = BookSerializer
+class CoffeeAPIView(generics.ListAPIView):
+    queryset = Coffee.objects.all()
+    serializer_class = CoffeeSerializer

@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
-from .models import Books
+from .models import Coffee
 
 
-class BookSerializer(serializers.ModelSerializer):
+class CoffeeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Books
-        fields = ('title', 'subtitle', 'author', 'isbn')
+        model = Coffee
+        fields = ('name', 'feature', 'taste', 'impressions')
