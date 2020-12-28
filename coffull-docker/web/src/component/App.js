@@ -3,7 +3,7 @@ import axios from "axios";
 
 class App extends Component {
   state = {
-    books: [],
+    coffee: [],
   };
 
   componentDidMount() {
@@ -14,7 +14,7 @@ class App extends Component {
     axios
       .get("http://localhost:8000/api")
       .then((res) => {
-        this.setState({ books: res.data });
+        this.setState({ coffee: res.data });
       })
       .catch((err) => {
         console.log(err);
@@ -24,13 +24,13 @@ class App extends Component {
   render() {
     return (
       <div>
-        {this.state.books.map((item,i) => {
+        {this.state.coffee.map((item,i) => {
           return (
             <div key={i}>
-              <h1>{item.title}</h1>
-              <p>{item.subtitle}</p>
-              <p>{item.author}</p>
-              <p>{item.isbn}</p>
+              <h1>{item.name}</h1>
+              <p>feature : {item.feature}</p>
+              <p>taste : {item.taste}</p>
+              <p>impressions : {item.impressions}</p>
             </div>
           );
         })}
