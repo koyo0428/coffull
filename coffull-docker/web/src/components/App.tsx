@@ -1,17 +1,12 @@
 import React from "react";
 import axios from "axios";
+import { CoffeeType } from "../types/CoffeeType"
+import CoffeeCard from "./CoffeeCard";
+import '../assets/styles/App.css'
 
 // Appのpropsのtype aliasを定義
 type AppProps = {
 
-}
-
-// Bookのtype
-type CoffeeType = {
-  name: string,
-  feature: string,
-  taste: string,
-  impressions: string,
 }
 
 // AppのLocalStateのtype aliasを定義
@@ -48,11 +43,8 @@ class App extends React.Component<AppProps, AppState> {
       <div>
         {this.state.coffees.map((item,i) => {
           return (
-            <div key={i}>
-              <h1>{item.name}</h1>
-              <p>feature : {item.feature}</p>
-              <p>taste : {item.taste}</p>
-              <p>impressions : {item.impressions}</p>
+            <div key={i} className="card-container">
+              <CoffeeCard coffee = {item} />
             </div>
           );
         })}
