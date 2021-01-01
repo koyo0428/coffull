@@ -1,6 +1,8 @@
 from django.urls import path
-from .views import CoffeeAPIView
+from .views import CoffeeListAPIView
+from .views import CoffeeDetailAPIView
 
 urlpatterns = [
-    path('', CoffeeAPIView.as_view()),
+    path('<int:pk>/', CoffeeDetailAPIView.as_view()),
+    path('', CoffeeListAPIView.as_view()),
 ]

@@ -3,7 +3,12 @@ from rest_framework import serializers
 from .models import Coffee
 
 
-class CoffeeSerializer(serializers.ModelSerializer):
+class CoffeeListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Coffee
-        fields = ('name', 'feature', 'taste', 'impressions')
+        fields = ('id','name', 'feature', 'taste', 'impressions')
+
+class CoffeeDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Coffee
+        fields = ('id','name', 'feature', 'taste', 'impressions')

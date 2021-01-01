@@ -1,56 +1,34 @@
 import React from "react";
-import axios from "axios";
-import { CoffeeType } from "../types/CoffeeType"
-import CoffeeCard from "./CoffeeCard";
 import '../assets/styles/App.css'
+import CoffeeCardList from "./CoffeeCardList";
+import CoffeeDetail from "./CoffeeDetail";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useParams,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
 
 // Appのpropsのtype aliasを定義
 type AppProps = {
 
 }
 
-// AppのLocalStateのtype aliasを定義
-type AppState = {
-  coffees: Array<CoffeeType>
-}
-
-class App extends React.Component<AppProps, AppState> {
-  constructor(props: AppProps) {
-    super(props);
-    // stateの初期状態
-    this.state = {
-      coffees: []
-    }
-  }
-
-  componentDidMount() {
-    this.getBooks();
-  }
-
-  getBooks() {
-    axios
-      .get("http://localhost:8000/api")
-      .then((res) => {
-        this.setState({ coffees: res.data });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  render() {
-    return (
-      <div>
-        {this.state.coffees.map((item,i) => {
-          return (
-            <div key={i} className="card-container">
-              <CoffeeCard coffee = {item} />
-            </div>
-          );
-        })}
-      </div>
-    );
-  }
+const App: React.FC<AppProps> = (props) => {
+  return (
+    <Router>
+      <Switch>
+        <Route path="/" exact>
+          <CoffeeCardList />
+        </Route>
+        <Route path="/coffee/:coffeeId">
+          <CoffeeDetail />
+        </Route>
+      </Switch>
+    </Router>
+  );
 }
 
 export default App;

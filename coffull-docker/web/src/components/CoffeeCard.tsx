@@ -6,15 +6,11 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { CoffeeType } from '../types/CoffeeType';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
   },
   title: {
     fontSize: 14,
@@ -30,7 +26,7 @@ type CoffeeCardProps = {
 
 export const CoffeeCard: React.FC<CoffeeCardProps> = (props) => {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
+  const history = useHistory();
 
   return (
     <Card className={classes.root}>
@@ -53,7 +49,7 @@ export const CoffeeCard: React.FC<CoffeeCardProps> = (props) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Button size="small" onClick={() => history.push('/coffee/'+ props.coffee.id)}>Learn More</Button>
       </CardActions>
     </Card>
   );
