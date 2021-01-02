@@ -1,17 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import CommonTemplate from './template/CommonTemplate';
-import App from './components/App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+import CommonTemplate from "./template/CommonTemplate";
+import CommonRouter from "./template/CommonRouter";
+import Coffee from "./components/coffee/Coffee";
+import Home from "./components/home/Home";
 
 ReactDOM.render(
   <React.StrictMode>
-    <CommonTemplate title="トップページ">
-      <App />
-    </CommonTemplate>
+    <CommonRouter>
+      <CommonTemplate title="トップページ">
+        <Coffee />
+        <Home />
+      </CommonTemplate>
+    </CommonRouter>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

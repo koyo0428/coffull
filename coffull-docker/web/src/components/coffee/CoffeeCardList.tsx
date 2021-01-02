@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { CoffeeType } from "../types/CoffeeType";
+import { CoffeeType } from "types/CoffeeTypes";
 import CoffeeCard from "./CoffeeCard";
-import "../assets/styles/App.css";
+import "assets/styles/coffee/CoffeeCardList.css";
 
-// Appのpropsのtype aliasを定義
-type CoffeeCardListProps = {};
-
-const CoffeeCardList: React.FC<CoffeeCardListProps> = (props) => {
-  const [coffees, setCoffees] = useState([]);
+const CoffeeCardList: React.FC<{}> = (props) => {
+  const [coffees, setCoffees] = useState<CoffeeType[]>([]);
   useEffect(() => {
     getCoffees();
     return () => {};
@@ -16,7 +13,7 @@ const CoffeeCardList: React.FC<CoffeeCardListProps> = (props) => {
 
   const getCoffees = () => {
     axios
-      .get("http://localhost:8000/api")
+      .get<CoffeeType[]>("http://localhost:8000/api")
       .then((res) => {
         setCoffees(res.data);
       })

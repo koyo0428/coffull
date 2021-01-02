@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import clsx from "clsx";
 import { createMuiTheme } from "@material-ui/core/styles";
 import * as colors from "@material-ui/core/colors";
@@ -21,6 +21,7 @@ import NotesIcon from "@material-ui/icons/Notes";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import { useHistory, useRouteMatch } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -148,9 +149,16 @@ type CommonTemplateProps = {
     title: string,
 }
 
+// テンプレートreactコンポーネント
 const CommonTemplate: React.FC<CommonTemplateProps> = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const history = useHistory();
+  const match = useRouteMatch();
+  useEffect(() => {
+    document.title = 'coffull';
+    return () => {};
+  });
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -204,7 +212,7 @@ const CommonTemplate: React.FC<CommonTemplateProps> = (props) => {
           </div>
           <Divider />
           <List>
-            <span className={classes.link}>
+            <span className={classes.link} onClick={() => history.push('/home')}>
             <ListItem button>
               <ListItemIcon>
                 <HomeIcon />
@@ -212,7 +220,7 @@ const CommonTemplate: React.FC<CommonTemplateProps> = (props) => {
               <ListItemText primary="トップページ" />
             </ListItem>
             </span>
-            <span className={classes.link}>
+            <span className={classes.link} onClick={() => history.push('/coffee')}>
             <ListItem button>
               <ListItemIcon>
                 <NotesIcon />

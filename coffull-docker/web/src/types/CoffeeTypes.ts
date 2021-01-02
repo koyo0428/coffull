@@ -6,3 +6,8 @@ export type CoffeeType = {
     taste: string,
     impressions: string,
 }
+
+// CoffeeDetailのURLパラメータ
+export type CoffeeDetailParamType = {
+    coffeeId: string;
+};

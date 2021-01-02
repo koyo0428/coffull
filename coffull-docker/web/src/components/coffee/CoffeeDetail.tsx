@@ -5,10 +5,9 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { CoffeeType } from "../types/CoffeeType";
+import { CoffeeDetailParamType, CoffeeType } from "types/CoffeeTypes";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { type } from "os";
 
 const useStyles = makeStyles({
   root: {
@@ -22,26 +21,23 @@ const useStyles = makeStyles({
   },
 });
 
-type CoffeeDetailProps = {};
+// stateの初期状態
+const initCoffeeState: CoffeeType = {
+  id: 0,
+  name: "",
+  feature: "",
+  taste: "",
+  impressions: "",
+}
 
-export const CoffeeDetail: React.FC<CoffeeDetailProps> = (props) => {
+export const CoffeeDetail: React.FC<{}> = (props) => {
   const classes = useStyles();
-  const initCoffeeState: CoffeeType = {
-    id: 0,
-    name: "",
-    feature: "",
-    taste: "",
-    impressions: "",
-  }
+  const { coffeeId } = useParams<CoffeeDetailParamType>();
   const [coffee, setCoffee] = useState<CoffeeType>(initCoffeeState);
   useEffect(() => {
     getCoffeeDetail();
     return () => {};
   });
-  type CoffeeDetailParamType = {
-    coffeeId: string;
-  };
-  const { coffeeId } = useParams<CoffeeDetailParamType>();
 
   const getCoffeeDetail = () => {
     axios
