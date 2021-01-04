@@ -4,7 +4,7 @@ import CoffeeCardList from "components/coffee/CoffeeCardList";
 import CoffeeDetail from "components/coffee/CoffeeDetail";
 import CoffeeRegister from "components/coffee/CoffeeRegister";
 
-const CoffeeRouter: React.FC<{}> = (props) => {
+const CoffeeRouter: React.FC<{}> = () => {
   const match = useRouteMatch();
   return (
     <Switch>

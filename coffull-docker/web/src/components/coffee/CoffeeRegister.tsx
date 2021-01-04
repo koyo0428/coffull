@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useReducer } from "react";
+import React, { useCallback, useEffect, useReducer, useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -7,7 +7,8 @@ import Button from "@material-ui/core/Button";
 import { TextField } from "@material-ui/core";
 import { CoffeeType } from "types/CoffeeTypes";
 import "assets/styles/coffee/CoffeeRegister.css";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -56,6 +57,7 @@ export class ActionType {
 
 export const CoffeeRegister: React.FC<CoffeeRegisterPropsType> = (props) => {
   const classes = useStyles();
+  const history = useHistory();
 
   const reducer = (
     state: CoffeeRegisterStateType,
@@ -81,10 +83,10 @@ export const CoffeeRegister: React.FC<CoffeeRegisterPropsType> = (props) => {
   };
 
   const [state, dispatch] = useReducer(reducer, initCoffeeRegisterState);
-
+  const refState = useRef(state);
   useEffect(() => {
-    return () => {};
-  },[]);
+    refState.current = state;
+  },[state]);
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,19 +102,20 @@ export const CoffeeRegister: React.FC<CoffeeRegisterPropsType> = (props) => {
   const handleSubmit = useCallback(
     (event:React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      const args = state;
+      const args = refState.current;
       const url = "http://localhost:8000/api/register";
 
       axios
-      .post(url, args)
+      .post<CoffeeType, AxiosResponse<CoffeeType>>(url, args)
       .then((res) => {
         console.log("register success")
         console.log(res);
+        history.push('/coffee/'+ res.data.id);
       })
       .catch((err) => {
         console.log(err);
       });
-    }, [state]
+    }, [history]
   );
 
   return (
