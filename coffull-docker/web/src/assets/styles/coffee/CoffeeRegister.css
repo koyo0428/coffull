@@ -1,0 +1,8 @@
+.coffee-name-input,
+.coffee-feature-input,
+.coffee-taste-input,
+.coffee-impression-input {
+    padding: 2px;
+    margin-bottom: 2rem;
+}
+

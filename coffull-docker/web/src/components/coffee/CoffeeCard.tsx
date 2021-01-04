@@ -50,7 +50,7 @@ export const CoffeeCard: React.FC<CoffeeCardProps> = (props) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={() => history.push('/coffee/'+ props.coffee.id)}>Learn More</Button>
+        <Button size="small" onClick={() => history.push('/coffee/'+ props.coffee.id)}>詳細</Button>
       </CardActions>
     </Card>
   );

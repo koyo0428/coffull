@@ -154,7 +154,6 @@ const CommonTemplate: React.FC<CommonTemplateProps> = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const history = useHistory();
-  const match = useRouteMatch();
   useEffect(() => {
     document.title = 'coffull';
     return () => {};
@@ -212,7 +211,7 @@ const CommonTemplate: React.FC<CommonTemplateProps> = (props) => {
           </div>
           <Divider />
           <List>
-            <span className={classes.link} onClick={() => history.push('/home')}>
+            <span className={classes.link} onClick={() => history.push('/')}>
             <ListItem button>
               <ListItemIcon>
                 <HomeIcon />
@@ -240,7 +239,7 @@ const CommonTemplate: React.FC<CommonTemplateProps> = (props) => {
               noWrap
               className={classes.pageTitle}
             >
-              {props.title}
+              {/* タイトル表示箇所 */}
             </Typography>
             {props.children}
             <Box pt={4}>

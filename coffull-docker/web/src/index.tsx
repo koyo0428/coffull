@@ -2,19 +2,19 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
+import RouterTemplate from "./template/RouterTemplate";
 import CommonTemplate from "./template/CommonTemplate";
-import CommonRouter from "./template/CommonRouter";
-import Coffee from "./components/coffee/Coffee";
-import Home from "./components/home/Home";
+import HomeRouter from "./router/HomeRouter";
+import CoffeeRouter from "./router/CoffeeRouter";
 
 ReactDOM.render(
   <React.StrictMode>
-    <CommonRouter>
+    <RouterTemplate>
       <CommonTemplate title="トップページ">
-        <Coffee />
-        <Home />
+        <HomeRouter />
+        <CoffeeRouter />
       </CommonTemplate>
-    </CommonRouter>
+    </RouterTemplate>
   </React.StrictMode>,
   document.getElementById("root")
 );

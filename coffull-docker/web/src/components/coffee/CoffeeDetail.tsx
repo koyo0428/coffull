@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -34,12 +34,8 @@ export const CoffeeDetail: React.FC<{}> = (props) => {
   const classes = useStyles();
   const { coffeeId } = useParams<CoffeeDetailParamType>();
   const [coffee, setCoffee] = useState<CoffeeType>(initCoffeeState);
-  useEffect(() => {
-    getCoffeeDetail();
-    return () => {};
-  });
 
-  const getCoffeeDetail = () => {
+  const getCoffeeDetail = useCallback(() => {
     axios
       .get<CoffeeType>("http://localhost:8000/api/" + coffeeId)
       .then((res) => {
@@ -48,7 +44,12 @@ export const CoffeeDetail: React.FC<{}> = (props) => {
       .catch((err) => {
         console.log(err);
       });
-  };
+  },[coffeeId]);
+
+  useEffect(() => {
+    getCoffeeDetail();
+    return () => {};
+  },[getCoffeeDetail]);
 
   return (
     <Card className={classes.root}>
@@ -75,7 +76,7 @@ export const CoffeeDetail: React.FC<{}> = (props) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Button size="small">編集する</Button>
       </CardActions>
     </Card>
   );

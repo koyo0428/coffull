@@ -6,7 +6,7 @@ type CommonRouterProps = {
     children: any,
 }
 
-const CommonRouter: React.FC<CommonRouterProps> = (props) => {
+const RouterTemplate: React.FC<CommonRouterProps> = (props) => {
   return (
     <Router>
       <Route path="/">
@@ -16,4 +16,4 @@ const CommonRouter: React.FC<CommonRouterProps> = (props) => {
   );
 };
 
-export default CommonRouter;
+export default RouterTemplate;

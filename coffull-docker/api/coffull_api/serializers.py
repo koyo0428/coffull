@@ -12,3 +12,8 @@ class CoffeeDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Coffee
         fields = ('id','name', 'feature', 'taste', 'impressions')
+
+class CofeeRegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Coffee
+        fields = ('id','name', 'feature', 'taste', 'impressions')
