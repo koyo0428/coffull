@@ -4,7 +4,7 @@ from .views import CoffeeDetailAPIView
 from .views import CoffeeRegisterAPIView
 
 urlpatterns = [
-    path('<int:pk>/', CoffeeDetailAPIView.as_view()),
+    path('<uuid:pk>/', CoffeeDetailAPIView.as_view()),
     path('', CoffeeListAPIView.as_view()),
     path('register', CoffeeRegisterAPIView.as_view()),
 ]
