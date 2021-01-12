@@ -1,21 +1,40 @@
-from rest_framework import generics
-from .models import Coffee
-from .serializers import CoffeeListSerializer
-from .serializers import CoffeeDetailSerializer
-from .serializers import CofeeRegisterSerializer
+from rest_framework import generics, status, viewsets, filters
+from .models import CoffeeNote
+from .serializers import CoffeeNoteSerializer
+from .serializers import CoffeeNoteListSerializer
+from .serializers import CoffeeNoteDetailSerializer
+from .serializers import CofeeNoteRegisterSerializer
+from .serializers import CoffeeNoteDestroySerializer
+from rest_framework.response import Response
 
+class CoffeeNoteViewSet(viewsets.ModelViewSet):
 
-class CoffeeListAPIView(generics.ListAPIView):
+    class META:
+        lookup_field = 'note_id'
+
+    queryset = CoffeeNote.objects.all()
+    serializer_class = CoffeeNoteSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name','feature','taste','impression']
+
+class CoffeeNoteListAPIView(generics.ListAPIView):
     
-    queryset = Coffee.objects.all()
-    serializer_class = CoffeeListSerializer
+    queryset = CoffeeNote.objects.all()
+    serializer_class = CoffeeNoteListSerializer
 
-class CoffeeDetailAPIView(generics.RetrieveAPIView):
+class CoffeeNoteDetailAPIView(generics.RetrieveAPIView):
     
-    queryset = Coffee.objects.all()
-    serializer_class = CoffeeDetailSerializer
+    queryset = CoffeeNote.objects.all()
+    serializer_class = CoffeeNoteDetailSerializer
 
-class CoffeeRegisterAPIView(generics.CreateAPIView):
+class CoffeeNoteRegisterAPIView(generics.CreateAPIView):
+    queryset = CoffeeNote.objects.all()
+    serializer_class = CofeeNoteRegisterSerializer
 
-    queryset = Coffee.objects.all()
-    serializer_class = CofeeRegisterSerializer
+class CoffeeNoteDeleteAPIView(generics.DestroyAPIView):
+
+    class META:
+        lookup_field = 'note_id'
+
+    queryset = CoffeeNote.objects.all()
+    serializer_class = CoffeeNoteDestroySerializer

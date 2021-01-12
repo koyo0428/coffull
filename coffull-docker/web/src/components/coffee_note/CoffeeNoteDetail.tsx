@@ -5,7 +5,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { CoffeeDetailParamType, CoffeeType } from "types/CoffeeTypes";
+import { CoffeeNoteDetailParamType, CoffeeNoteType } from "types/CoffeeNoteTypes";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -22,29 +22,29 @@ const useStyles = makeStyles({
 });
 
 // stateの初期状態
-const initCoffeeState: CoffeeType = {
-  id: 0,
+const initCoffeeNoteState: CoffeeNoteType = {
+  noteId: null,
   name: "",
   feature: "",
   taste: "",
-  impressions: "",
+  impression: "",
 }
 
-export const CoffeeDetail: React.FC<{}> = (props) => {
+export const CoffeeNoteDetail: React.FC<{}> = (props) => {
   const classes = useStyles();
-  const { coffeeId } = useParams<CoffeeDetailParamType>();
-  const [coffee, setCoffee] = useState<CoffeeType>(initCoffeeState);
+  const params = useParams<CoffeeNoteDetailParamType>();
+  const [coffeeNote, setCoffeeNote] = useState<CoffeeNoteType>(initCoffeeNoteState);
 
   const getCoffeeDetail = useCallback(() => {
     axios
-      .get<CoffeeType>("http://localhost:8000/api/" + coffeeId)
+      .get<CoffeeNoteType>("http://localhost:8000/api/v1/coffull/coffee-note/" + params.noteId)
       .then((res) => {
-        setCoffee(res.data);
+        setCoffeeNote(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  },[coffeeId]);
+  },[params.noteId]);
 
   useEffect(() => {
     getCoffeeDetail();
@@ -62,17 +62,17 @@ export const CoffeeDetail: React.FC<{}> = (props) => {
           xx月xx日
         </Typography>
         <Typography variant="h5" component="h2">
-          {coffee.name}
+          {coffeeNote.name}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          {coffee.feature}
+          {coffeeNote.feature}
         </Typography>
         <Typography variant="body2" component="p">
-          taste : {coffee.taste}
+          taste : {coffeeNote.taste}
         </Typography>
         <br />
         <Typography variant="body2" component="p">
-          impression : {coffee.impressions}
+          impression : {coffeeNote.impression}
         </Typography>
       </CardContent>
       <CardActions>
@@ -82,4 +82,4 @@ export const CoffeeDetail: React.FC<{}> = (props) => {
   );
 };
 
-export default CoffeeDetail;
+export default CoffeeNoteDetail;

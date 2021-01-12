@@ -5,7 +5,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import { TextField } from "@material-ui/core";
-import { CoffeeType } from "types/CoffeeTypes";
+import { CoffeeNoteType } from "types/CoffeeNoteTypes";
 import "assets/styles/coffee/CoffeeRegister.css";
 import axios, { AxiosResponse } from "axios";
 import { useHistory } from "react-router-dom";
@@ -23,29 +23,29 @@ const useStyles = makeStyles({
 });
 
 // CoffeeRegisterのpropsのtype aliasを定義
-type CoffeeRegisterPropsType = {
-  coffee?: CoffeeType;
+type CoffeeNoteRegisterPropsType = {
+  coffee?: CoffeeNoteType;
 };
 
-type CoffeeRegisterStateType = {
+type CoffeeNoteRegisterStateType = {
   name: string;
   feature: string;
   taste: string;
-  impressions: string;
+  impression: string;
 };
 
 //
-type CoffeeRegisterActionType = {
+type CoffeeNoteRegisterActionType = {
   type?: string;
   value: string;
 };
 
 // stateの初期状態
-const initCoffeeRegisterState: CoffeeRegisterStateType = {
+const initCoffeeNoteRegisterState: CoffeeNoteRegisterStateType = {
   name: "",
   feature: "",
   taste: "",
-  impressions: "",
+  impression: "",
 };
 
 export class ActionType {
@@ -55,18 +55,18 @@ export class ActionType {
   static readonly IMPRESSION: string = "COFFEE_IMPRESSION"
 }
 
-export const CoffeeRegister: React.FC<CoffeeRegisterPropsType> = (props) => {
+export const CoffeeNoteRegister: React.FC<CoffeeNoteRegisterPropsType> = (props) => {
   const classes = useStyles();
   const history = useHistory();
 
   const reducer = (
-    state: CoffeeRegisterStateType,
-    action: CoffeeRegisterActionType
-  ): CoffeeRegisterStateType => {
+    state: CoffeeNoteRegisterStateType,
+    action: CoffeeNoteRegisterActionType
+  ): CoffeeNoteRegisterStateType => {
     switch (action.type) {
       case ActionType.NAME:
         const newName = { name: action.value };
-        const newState: CoffeeRegisterStateType = { ...state, ...newName };
+        const newState: CoffeeNoteRegisterStateType = { ...state, ...newName };
         return newState;
       case ActionType.FEATURE:
         const newFeature = { feature: action.value };
@@ -75,15 +75,16 @@ export const CoffeeRegister: React.FC<CoffeeRegisterPropsType> = (props) => {
         const newTaste = { taste: action.value };
         return { ...state, ...newTaste };
       case ActionType.IMPRESSION:
-        const newImpression = { impressions: action.value };
+        const newImpression = { impression: action.value };
         return { ...state, ...newImpression };
       default:
         return state;
     }
   };
 
-  const [state, dispatch] = useReducer(reducer, initCoffeeRegisterState);
+  const [state, dispatch] = useReducer(reducer, initCoffeeNoteRegisterState);
   const refState = useRef(state);
+
   useEffect(() => {
     refState.current = state;
   },[state]);
@@ -103,14 +104,14 @@ export const CoffeeRegister: React.FC<CoffeeRegisterPropsType> = (props) => {
     (event:React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const args = refState.current;
-      const url = "http://localhost:8000/api/register";
+      const url = "http://localhost:8000/api/v1/coffull/coffee-note/";
 
       axios
-      .post<CoffeeType, AxiosResponse<CoffeeType>>(url, args)
+      .post<CoffeeNoteType, AxiosResponse<CoffeeNoteType>>(url, args)
       .then((res) => {
         console.log("register success")
         console.log(res);
-        history.push('/coffee/'+ res.data.id);
+        history.push('coffee-note/'+ res.data.noteId);
       })
       .catch((err) => {
         console.log(err);
@@ -161,7 +162,7 @@ export const CoffeeRegister: React.FC<CoffeeRegisterPropsType> = (props) => {
               name={ActionType.IMPRESSION}
               multiline
               rows={4}
-              value={state.impressions}
+              value={state.impression}
               onChange={handleChange}
             />
           </div>
@@ -174,4 +175,4 @@ export const CoffeeRegister: React.FC<CoffeeRegisterPropsType> = (props) => {
   );
 };
 
-export default CoffeeRegister;
+export default CoffeeNoteRegister;

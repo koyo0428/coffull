@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import Coffee
+from .models import CoffeeNote
 
-admin.site.register(Coffee)
+admin.site.register(CoffeeNote)

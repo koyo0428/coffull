@@ -5,7 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { CoffeeType } from 'types/CoffeeTypes';
+import { CoffeeNoteType } from 'types/CoffeeNoteTypes';
 import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles({
@@ -21,13 +21,14 @@ const useStyles = makeStyles({
 });
 
 // CoffeeCardのpropsのtype aliasを定義
-type CoffeeCardProps = {
-  coffee: CoffeeType
+type CoffeeNoteCardProps = {
+  coffeeNote: CoffeeNoteType
 }
 
-export const CoffeeCard: React.FC<CoffeeCardProps> = (props) => {
+export const CoffeeNoteCard: React.FC<CoffeeNoteCardProps> = (props) => {
   const classes = useStyles();
   const history = useHistory();
+  const noteId = props.coffeeNote.noteId;
 
   return (
     <Card className={classes.root}>
@@ -36,24 +37,24 @@ export const CoffeeCard: React.FC<CoffeeCardProps> = (props) => {
           xx月xx日
         </Typography>
         <Typography variant="h5" component="h2">
-          {props.coffee.name}
+          {props.coffeeNote.name}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          {props.coffee.feature}
+          {props.coffeeNote.feature}
         </Typography>
         <Typography variant="body2" component="p">
-          taste : {props.coffee.taste}
+          taste : {props.coffeeNote.taste}
         </Typography>
         <br/>
         <Typography variant="body2" component="p">
-          impression : {props.coffee.impressions}
+          impression : {props.coffeeNote.impression}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={() => history.push('/coffee/'+ props.coffee.id)}>詳細</Button>
+        <Button size="small" onClick={() => history.push('coffee-note/'+ noteId)}>詳細</Button>
       </CardActions>
     </Card>
   );
 }
 
-export default CoffeeCard;
+export default CoffeeNoteCard;

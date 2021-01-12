@@ -5,14 +5,14 @@ import reportWebVitals from "./reportWebVitals";
 import RouterTemplate from "./template/RouterTemplate";
 import CommonTemplate from "./template/CommonTemplate";
 import HomeRouter from "./router/HomeRouter";
-import CoffeeRouter from "./router/CoffeeRouter";
+import CoffeeNoteRouter from "./router/CoffeeNoteRouter";
 
 ReactDOM.render(
   <React.StrictMode>
     <RouterTemplate>
       <CommonTemplate title="トップページ">
         <HomeRouter />
-        <CoffeeRouter />
+        <CoffeeNoteRouter />
       </CommonTemplate>
     </RouterTemplate>
   </React.StrictMode>,
