@@ -136,9 +136,9 @@ const useStyles = makeStyles((theme) =>
 const Copyright = () => {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
+      {"Copyright © 2020-"}
       {new Date().getFullYear()}
-      {"."}
+      {" koyo nishimori"}
     </Typography>
   );
 };

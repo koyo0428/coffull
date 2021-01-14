@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { CoffeeNoteType } from "types/CoffeeNoteTypes";
 import { CoffeeNoteCard } from "./CoffeeNoteCard";
-import "assets/styles/coffee/CoffeeCardList.css";
+import "assets/styles/coffee_note/CoffeeNoteList.css";
 import Button from "@material-ui/core/Button";
 import { useHistory, useParams } from "react-router-dom";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
@@ -99,7 +99,7 @@ const CoffeeNoteList: React.FC<{}> = () => {
       <div>
         {coffeeNotes.map((item, i) => {
           return (
-            <div key={i} className="card-container">
+            <div key={i} className="card-container note-list">
               <CoffeeNoteCard coffeeNote={item} />
             </div>
           );

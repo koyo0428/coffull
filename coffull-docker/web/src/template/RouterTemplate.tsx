@@ -9,7 +9,7 @@ type CommonRouterProps = {
 const RouterTemplate: React.FC<CommonRouterProps> = (props) => {
   return (
     <Router>
-      <Route path="/coffull/">
+      <Route path="/">
           {props.children}
       </Route>
     </Router>

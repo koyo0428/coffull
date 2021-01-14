@@ -9,7 +9,7 @@ const CoffeeNoteRouter: React.FC<{}> = () => {
   return (
     <Switch>
       {/* コーヒーノート一覧 */}
-      <Route key={"new"} path={match.path + "coffee-notes"} exact>
+      <Route key={"init"} path={match.path + "coffee-notes"} exact>
         <CoffeeNoteList />
       </Route>
       {/* コーヒーノート一覧 */}

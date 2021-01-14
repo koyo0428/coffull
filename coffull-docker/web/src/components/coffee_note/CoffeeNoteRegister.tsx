@@ -6,7 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import { TextField } from "@material-ui/core";
 import { CoffeeNoteType } from "types/CoffeeNoteTypes";
-import "assets/styles/coffee/CoffeeRegister.css";
+import "assets/styles/coffee_note/CoffeeNoteRegister.css";
 import axios, { AxiosResponse } from "axios";
 import { useHistory } from "react-router-dom";
 
