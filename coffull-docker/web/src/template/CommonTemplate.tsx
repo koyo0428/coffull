@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import clsx from "clsx";
 import { createMuiTheme } from "@material-ui/core/styles";
 import * as colors from "@material-ui/core/colors";
-import { makeStyles, createStyles} from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
@@ -22,6 +22,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { useHistory, useRouteMatch } from "react-router-dom";
+import { firebaseApp } from "utils/firebaseApp";
+import { Button, CardActions } from "@material-ui/core";
+import { AuthContext } from "utils/AuthProvider";
 
 const drawerWidth = 240;
 
@@ -145,9 +148,9 @@ const Copyright = () => {
 
 // CommonTemplateのpropsのtype aliasを定義
 type CommonTemplateProps = {
-    children: any,
-    title: string,
-}
+  children: any;
+  title: string;
+};
 
 // テンプレートreactコンポーネント
 const CommonTemplate: React.FC<CommonTemplateProps> = (props) => {
@@ -155,8 +158,10 @@ const CommonTemplate: React.FC<CommonTemplateProps> = (props) => {
   const [open, setOpen] = React.useState(true);
   const history = useHistory();
   const match = useRouteMatch();
+  const { currentUser } = useContext(AuthContext);
+
   useEffect(() => {
-    document.title = 'coffull';
+    document.title = "coffull";
     return () => {};
   });
   const handleDrawerOpen = () => {
@@ -196,6 +201,16 @@ const CommonTemplate: React.FC<CommonTemplateProps> = (props) => {
             >
               coffull
             </Typography>
+            {currentUser && (
+              <CardActions>
+                <Button
+                  size="small"
+                  onClick={() => firebaseApp.auth().signOut()}
+                >
+                  Sign out
+                </Button>
+              </CardActions>
+            )}
           </Toolbar>
         </AppBar>
         <Drawer
@@ -212,21 +227,27 @@ const CommonTemplate: React.FC<CommonTemplateProps> = (props) => {
           </div>
           <Divider />
           <List>
-            <span className={classes.link} onClick={() => history.push(match.path)}>
-            <ListItem button>
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText primary="トップページ" />
-            </ListItem>
+            <span
+              className={classes.link}
+              onClick={() => history.push(match.path)}
+            >
+              <ListItem button>
+                <ListItemIcon>
+                  <HomeIcon />
+                </ListItemIcon>
+                <ListItemText primary="トップページ" />
+              </ListItem>
             </span>
-            <span className={classes.link} onClick={() =>  history.push(match.path + 'coffee-notes')}>
-            <ListItem button>
-              <ListItemIcon>
-                <NotesIcon />
-              </ListItemIcon>
-              <ListItemText primary="ノートページ" />
-            </ListItem>
+            <span
+              className={classes.link}
+              onClick={() => history.push(match.path + "coffee-notes")}
+            >
+              <ListItem button>
+                <ListItemIcon>
+                  <NotesIcon />
+                </ListItemIcon>
+                <ListItemText primary="ノートページ" />
+              </ListItem>
             </span>
           </List>
         </Drawer>

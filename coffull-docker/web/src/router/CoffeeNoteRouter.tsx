@@ -1,29 +1,22 @@
 import React from "react";
-import { Route, Switch, useRouteMatch } from "react-router-dom";
+import { Switch, useRouteMatch } from "react-router-dom";
 import CoffeeNoteList from "components/coffee_note/CoffeeNoteList";
 import CoffeeNoteDetail from "components/coffee_note/CoffeeNoteDetail";
 import CoffeeNoteRegister from "components/coffee_note/CoffeeNoteRegister";
+import PrivateRoute from "./PrivateRoute";
 
 const CoffeeNoteRouter: React.FC<{}> = () => {
   const match = useRouteMatch();
   return (
     <Switch>
       {/* コーヒーノート一覧 */}
-      <Route key={"init"} path={match.path + "coffee-notes"} exact>
-        <CoffeeNoteList />
-      </Route>
+      <PrivateRoute key={"init"} path={match.path + "coffee-notes"} component={CoffeeNoteList} exact />
       {/* コーヒーノート一覧 */}
-      <Route key={"search"} path={match.path + "coffee-notes/:search"} exact>
-        <CoffeeNoteList />
-      </Route>
+      <PrivateRoute key={"search"} path={match.path + "coffee-notes/:search"} component={CoffeeNoteList} exact />
       {/* コーヒーノート登録 */}
-      <Route path={match.path + "note-register"} >
-        <CoffeeNoteRegister />
-      </Route>
+      <PrivateRoute path={match.path + "note-register"} component={CoffeeNoteRegister} />
       {/* コーヒーノート詳細 */}
-      <Route path={match.path + "coffee-note/:noteId"}>
-        <CoffeeNoteDetail />
-      </Route>
+      <PrivateRoute path={match.path + "coffee-note/:noteId"} component={CoffeeNoteDetail} />
     </Switch>
   );
 };

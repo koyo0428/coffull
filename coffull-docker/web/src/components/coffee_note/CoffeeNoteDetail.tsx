@@ -6,7 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { CoffeeNoteDetailParamType, CoffeeNoteType } from "types/CoffeeNoteTypes";
-import { useHistory, useParams, useRouteMatch } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 import "assets/styles/coffee_note/CoffeeNoteDetail.css";
 
@@ -35,13 +35,12 @@ const initCoffeeNoteState: CoffeeNoteType = {
 export const CoffeeNoteDetail: React.FC<{}> = (props) => {
   const classes = useStyles();
   const history = useHistory();
-  const match = useRouteMatch();
   const params = useParams<CoffeeNoteDetailParamType>();
   const [coffeeNote, setCoffeeNote] = useState<CoffeeNoteType>(initCoffeeNoteState);
 
   const getCoffeeNote = useCallback(() => {
     axios
-      .get<CoffeeNoteType>("http://localhost:8000/api/v1/coffull/coffee-note/" + params.noteId)
+      .get<CoffeeNoteType>(process.env.REACT_APP_API_DOMAIN + "api/v1/coffull/coffee-note/" + params.noteId)
       .then((res) => {
         setCoffeeNote(res.data);
       })
@@ -53,7 +52,7 @@ export const CoffeeNoteDetail: React.FC<{}> = (props) => {
   const deleteCoffeeNote = useCallback((event:React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     axios
-    .delete("http://localhost:8000/api/v1/coffull/coffee-note/" + params.noteId)
+    .delete(process.env.REACT_APP_API_DOMAIN + "api/v1/coffull/coffee-note/" + params.noteId)
     .then((res) => {
       console.log("削除完了");
       console.log(res);

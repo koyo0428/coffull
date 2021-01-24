@@ -35,7 +35,11 @@ const CoffeeNoteList: React.FC<{}> = () => {
       setSearchWord(params.search);
       axios
         .get<CoffeeNoteType[]>(
-          "http://localhost:8000/api/v1/coffull/coffee-note" + "?search=" + params.search)
+          process.env.REACT_APP_API_DOMAIN +
+            "api/v1/coffull/coffee-note" +
+            "?search=" +
+            params.search
+        )
         .then((res) => {
           setCoffeeNotes(res.data);
         })
@@ -45,7 +49,7 @@ const CoffeeNoteList: React.FC<{}> = () => {
     } else {
       axios
         .get<CoffeeNoteType[]>(
-          "http://localhost:8000/api/v1/coffull/coffee-note"
+          process.env.REACT_APP_API_DOMAIN + "api/v1/coffull/coffee-note"
         )
         .then((res) => {
           setCoffeeNotes(res.data);
@@ -56,12 +60,15 @@ const CoffeeNoteList: React.FC<{}> = () => {
     }
   }, [params]);
 
-  const searchNotes = useCallback((event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const value: string = event.currentTarget["search-word"].value;
-    setSearchWord(value);
-    history.push("coffee-notes/" + value);
-  }, [history]);
+  const searchNotes = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      const value: string = event.currentTarget["search-word"].value;
+      setSearchWord(value);
+      history.push("coffee-notes/" + value);
+    },
+    [history]
+  );
 
   useEffect(() => {
     getCoffeeNotes();

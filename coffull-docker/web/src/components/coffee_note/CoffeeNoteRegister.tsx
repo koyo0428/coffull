@@ -66,8 +66,7 @@ export const CoffeeNoteRegister: React.FC<CoffeeNoteRegisterPropsType> = (props)
     switch (action.type) {
       case ActionType.NAME:
         const newName = { name: action.value };
-        const newState: CoffeeNoteRegisterStateType = { ...state, ...newName };
-        return newState;
+        return { ...state, ...newName };
       case ActionType.FEATURE:
         const newFeature = { feature: action.value };
         return { ...state, ...newFeature };
@@ -104,7 +103,7 @@ export const CoffeeNoteRegister: React.FC<CoffeeNoteRegisterPropsType> = (props)
     (event:React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const args = refState.current;
-      const url = "http://localhost:8000/api/v1/coffull/coffee-note/";
+      const url = process.env.REACT_APP_API_DOMAIN + "api/v1/coffull/coffee-note/";
 
       axios
       .post<CoffeeNoteType, AxiosResponse<CoffeeNoteType>>(url, args)
