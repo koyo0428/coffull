@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'dz$rgh$j*5m(jkmhmcn))l1rac63*auo%4ue!pok2b&fk@%tm('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -67,6 +67,7 @@ MIDDLEWARE = [
 CORS_ORIGIN_WHITELIST = [
     'http://web_container:3000',
     'http://localhost:3000',
+    'https://coffull.web.app',
 ]
 
 ROOT_URLCONF = 'coffull_app.urls'
